@@ -72,7 +72,91 @@ class gravityProfile:
         else:
             raise TypeError('Can only read .csv or .xlsx files')
 
+    def setData(self, colname=None):
+        """
+        Assign the gravity data given a column name in the file read
 
+        Parameters
+        ----------
+        colname : str, optional
+            Name of the column which contains the measured gravity values.
+            The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+        if colname:
+            self.gravity = self.database[colname]
+        else:
+            print('Please provide a column name containing gravity data')
+
+    def setTime(self, colname=None):
+        """
+        Assign the measurement times given a column name in the file read
+
+        Parameters
+        ----------
+        colname : str, optional
+            Name of the column which contains the measurement times.
+            The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+        if colname:
+            self.time = self.database[colname]
+        else:
+            print('Please provide a column name containing times')
+
+    def setDate(self, colname=None):
+        """
+        Assign the measurement dates (including time) given a column
+        name in the file read
+
+        Parameters
+        ----------
+        colname : str, optional
+            Name of the column which contains the measurement dates.
+            The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+        if colname:
+            self.date = self.database[colname]
+        else:
+            print('Please provide a column name containing dates')
+
+    def setBaseLat(self, latitude=None):
+        """
+        Assign the base latitude given an input value
+
+        Parameters
+        ----------
+        latitude : float, optional
+            Latitude of the profile's base. The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+        if latitude:
+            self.baseLatitude = latitude
+        else:
+            print('Please specify a latitude')
+
+    def setStationLatitude(self, colname=None):
+        if colname:
+            self.stationLatitude = self.database[colname]
+        else:
+            print('Please provide a column name containing latitudes')
 
 # # Functions for gravity data corrections
 
