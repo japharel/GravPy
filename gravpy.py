@@ -92,7 +92,7 @@ class gravityProfile:
         else:
             print('Please provide a column name containing gravity data')
 
-    def setTime(self, colname=None):
+    def setTime(self, colname=None, dec=False):
         """
         Assign the measurement times given a column name in the file read
 
@@ -101,18 +101,24 @@ class gravityProfile:
         colname : str, optional
             Name of the column which contains the measurement times.
             The default is None.
+        dec : bool, optional
+            True if the input time is in decimal format.
+            The default is False.
 
         Returns
         -------
         None.
 
         """
+
         if colname:
             self.time = self.database[colname]
         else:
             print('Please provide a column name containing times')
 
-    def setDate(self, colname=None):
+        self.decimal = dec
+
+    def setDate(self, colname=None, dec=False):
         """
         Assign the measurement dates (including time) given a column
         name in the file read
@@ -122,6 +128,9 @@ class gravityProfile:
         colname : str, optional
             Name of the column which contains the measurement dates.
             The default is None.
+        dec : bool, optional
+            True if the input time is in decimal format.
+            The default is False.
 
         Returns
         -------
@@ -132,6 +141,8 @@ class gravityProfile:
             self.date = self.database[colname]
         else:
             print('Please provide a column name containing dates')
+
+        self.decimal = dec
 
     def setBaseLat(self, latitude=None):
         """
@@ -158,25 +169,53 @@ class gravityProfile:
         else:
             print('Please provide a column name containing latitudes')
 
+    def setStations(self, colname=None):
+        """
+        Assigns the stations names given a column name in the file read
+
+        Parameters
+        ----------
+        colname : str, optional
+            Names of the stations.
+            The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+        if colname:
+            self.stations = self.database[colname]
+        else:
+            print('Please provide a column name containing station names')
+
+
+    def hms_to_hh(self, date):
+        """
+        Converts hours in HH:MM:SS to HH.hh format
+
+        Parameters
+        ----------
+        date : array_like
+            Dates, including times, of the measurements.
+
+        Returns
+        -------
+        hh_time : TYPE
+            Converted times to decimal time.
+
+        """
+
+        hh_time = np.array([t.hour + t.minute / 60 + t.second / 3600 for t in date])
+
+        return hh_time
+
+# TODO
+    def groupStations():
+        pass
+
+
 # # Functions for gravity data corrections
-
-# def hms_to_hh(time):
-#     """
-#     Converts hours in HH:MM:SS to HH.hh format
-
-#     Parameters
-#     ----------
-#     time : array_like
-#            Contains the time when the points where taken
-
-#     Returns
-#     -------
-#     hh_time : array_like
-#     """
-
-#     hh_time = np.array([t.hour + t.minute / 60 + t.second / 3600 for t in time])
-
-#     return hh_time
 
 # def lat_dist(lat_base, distance):
 #     """

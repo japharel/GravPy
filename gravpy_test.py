@@ -6,10 +6,11 @@ Created on Thu May 11 22:21:04 2023
 """
 
 import gravpy as gpy
+import numpy as np
 
 profile = gpy.gravityProfile()
-profile.importdata('grav_csv_test.csv',
-                   usecols=['Station', 'NAD83_E','NAD83_N',
-                            'NAVD88','Obs_grav'])
+profile.importdata('PFOax_GRAV.xlsx', sheet_name=1,
+                   parse_dates=[['DATE', 'TIME']], usecols=[0, 1, 6, 9, 10, 12])
 
-print(profile.database)
+profile.setData('GRAV')
+profile.setDate('DATE_TIME')
